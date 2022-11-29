@@ -15,7 +15,8 @@ export default function Cadastro() {
 
     const usersRef = collection(db, "Users")
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         await addDoc(usersRef, {
             nome: nome.current.value,
             sobrenome: sobrenome.current.value,
@@ -24,7 +25,15 @@ export default function Cadastro() {
             estado: estado.current.value,
             arquivo: arquivo.current.value,
             local: local.current.value
-        })
+        }).then(() => {
+            nome.current.value = ""
+            sobrenome.current.value = ""
+            email.current.value = ""
+            estado.current.value = ""
+            arquivo.current.value = ""
+            local.current.value = ""
+        }).catch(err => alert(err))
+
     }
     return (
         <>
